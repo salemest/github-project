@@ -1,0 +1,127 @@
+
+---------------------Install wget-------------------------------------------
+sudo yum install wget
+
+
+
+
+---------------------Install node_exporter-------------------------------------------
+
+wget https://github.com/prometheus/node_exporter/releases/download/v0.15.2/node_exporter-0.15.2.linux-amd64.tar.gz
+tar xzvf node_exporter-0.15.2.linux-amd64.tar.gz
+cd node_exporter-0.15.2.linux-amd64
+nohup ./node_exporter &
+
+
+# Open the web browser and navigate to the  Node Exporter metrics endpoint
+# Replace 192.168.0.104 with the appropriate IP address 
+
+http://192.168.0.104:9100/metrics
+
+---------------------install cadvisor-------------------------------------------
+sudo docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest
+
+# Open the web browser and navigate to the Node Cadvisor metrics endpoint
+
+
+
+
+------------------install prometheus-----------------------------------------
+
+
+wget https://github.com/prometheus/prometheus/releases/download/v2.1.0/prometheus-2.1.0.linux-amd64.tar.gz
+tar xzvf prometheus-2.1.0.linux-amd64.tar.gz
+cd prometheus-2.1.0.linux-amd64
+vi prometheus.yml
+nohup ./prometheus & 
+
+
+# Open the web browser and navigate to the prometheus 
+# Replace 192.168.0.104 with the appropriate IP address 
+http://192.168.0.104:9090
+
+
+
+
+--------------------install graphana V6---------------------------------------------------
+
+---V6------
+wget https://dl.grafana.com/oss/release/grafana-6.4.1-1.x86_64.rpm
+sudo yum localinstall grafana-6.4.1-1.x86_64.rpm
+sudo service grafana-server start
+
+---V5------
+wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-5.2.3-1.x86_64.rpm
+sudo yum localinstall grafana-5.2.3-1.x86_64.rpm
+sudo service grafana-server start
+
+	
+---V4------
+wget https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana-4.6.3.linux-x64.tar.gz
+tar xzvf grafana-4.6.3.linux-x64.tar.gz
+cd grafana-4.6.3/bin
+nohup ./grafana-server  &
+
+
+# Open the web browser and navigate to the grafana 
+# Replace 192.168.0.104 with the appropriate IP address 
+http://192.168.0.104:3000/login
+
+
+---------------------dashboards graphana ------------------------
+# Connect to Grafana and create a connection to the Prometheus database.
+# Add a Grafana dashboard from the official Grafana site to visualize data.
+# Grafana dashboards are pre-configured templates for displaying specific sets of metrics.
+# Visit the official Grafana website (https://grafana.com/grafana/dashboards) to explore available dashboards.
+# Identify a dashboard that suits your monitoring needs and provides integration with Prometheus.
+# Import the dashboard into your Grafana instance by navigating to "Create" > "Dashboard" > "Import".
+
+
+
+----Url dashboards Cadvisor ----------------
+https://grafana.com/grafana/dashboards/893
+
+
+-----Id dashboards NodeExporter-----------
+7039
+
+-----------------------------------------
+-----------------------------------------
+-----------------------------------------
+-----------------------------------------
+-----------------------------------------
+# Display information about processes using the ps command.
+# The ps command provides a snapshot of currently running processes on the system.
+ps
+
+# Forcefully terminate a process using the kill command with the -9 signal.
+# The -9 signal (SIGKILL) is used to forcefully terminate a process.
+# Exercise caution when using SIGKILL, as it doesn't allow the process to perform cleanup operations.
+kill -9 <process_id>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
